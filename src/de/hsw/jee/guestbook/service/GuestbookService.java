@@ -21,5 +21,12 @@ public interface GuestbookService {
 	 * @return
 	 */
 	List<Eintrag> alleEintraege();
+
+	/**
+	 * Löscht einen Eintrag
+	 * 
+	 * Gibt true zurück falls der Eintrag erfolgreich gelöscht wurde.
+	 */
+	boolean eintragLoeschen(Integer id, Benutzer benutzer);
 	
 }

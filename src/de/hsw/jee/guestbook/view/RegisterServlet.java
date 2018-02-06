@@ -17,8 +17,6 @@ import de.hsw.jee.guestbook.service.BenutzerServiceImpl;
 @WebServlet("/auth/register")
 public class RegisterServlet extends HttpServlet {
 	
-	private static final long serialVersionUID = -104799241428708957L;
-	
 	@EJB
 	private BenutzerService service;
 	

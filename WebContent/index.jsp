@@ -4,6 +4,7 @@
 <%@ page import="de.hsw.jee.guestbook.service.GuestbookService" %>
 <%@ page import="de.hsw.jee.guestbook.service.GuestbookServiceImpl" %>
 <%@ page import="de.hsw.jee.guestbook.model.Eintrag" %>
+<%@ page import="de.hsw.jee.guestbook.model.Benutzer" %>
 
 <%!
 	GuestbookService guestbook = de.hsw.jee.guestbook.utils.BeanUtil
@@ -21,12 +22,23 @@
 
 	<h1>Guestbook</h1>
 
-	<% for(Eintrag eintrag : guestbook.alleEintraege()) {%>
-		
-		<h2>Eintrag von <%= eintrag.getBenutzer().getName() %></h2>
+	<% 
+	final Benutzer user = (Benutzer) request.getSession().getAttribute("benutzer");
+	for(Eintrag eintrag : guestbook.alleEintraege()) {
+	%>
+		<h2>
+			Eintrag von <%= eintrag.getBenutzer().getName() %> 
+		</h2>
+		<small><%= eintrag.getBenutzer().getRolle().name() %></small>
 
 		<p><%= eintrag.getNachricht() %></p>
-	
+		
+		<% if(eintrag.darfLoeschen(user)) {%>
+			<form method="POST" action="/guestbook/guestbook?id=<%= eintrag.getId() %>">
+				<input type="hidden" name="_method" value="DELETE"> 
+				<input type="submit" name="action" value="Löschen">
+			</form>
+		<% }%>
 	<% }%>
 	
 	<form action="/guestbook/guestbook" method="POST">

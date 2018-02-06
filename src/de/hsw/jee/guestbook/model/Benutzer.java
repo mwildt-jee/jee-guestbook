@@ -13,6 +13,15 @@ public class Benutzer {
 	private int id;
 	private String name;
 	private String password;
+	private BenutzerRolle rolle = BenutzerRolle.Nutzer;
+	
+	public BenutzerRolle getRolle() {
+		return rolle;
+	}
+
+	public void setRolle(BenutzerRolle rolle) {
+		this.rolle = rolle;
+	}
 
 	public String getName() {
 		return name;

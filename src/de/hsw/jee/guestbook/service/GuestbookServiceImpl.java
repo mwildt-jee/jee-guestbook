@@ -42,5 +42,17 @@ public class GuestbookServiceImpl implements GuestbookService{
 	public void setEm(EntityManager em) {
 		this.em = em;
 	}
+
+	@Override
+	public boolean eintragLoeschen(Integer id, Benutzer user) {
+		Eintrag eintrag = this.em.find(Eintrag.class, id);
+		if(eintrag.darfLoeschen(user)) {
+			this.em.remove(eintrag);
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
 	
 }

@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import de.hsw.jee.guestbook.model.Benutzer;
 import de.hsw.jee.guestbook.service.BenutzerService;
-import de.hsw.jee.guestbook.service.BenutzerServiceImpl;
 
 @WebServlet("/auth/login")
 public class AuthServlet extends HttpServlet {
 	
-	private static final long serialVersionUID = -104799241428708957L;
-	
 	@EJB
 	private BenutzerService service;
 	
+	/**
+	 * Controller für das Anmelden eines bereits existierenden Benutzers
+	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String benutzerName = req.getParameter("benutzerName");

@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import jersey.repackaged.com.google.common.base.Objects;
+
 @Entity
 public class Eintrag {
 	
@@ -50,6 +52,10 @@ public class Eintrag {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public boolean darfLoeschen(Benutzer benutzer) {
+		return BenutzerRolle.Administrator.equals(benutzer.getRolle()) || Objects.equal(benutzer.getId(), this.benutzer.getId());
 	}
 
 }
