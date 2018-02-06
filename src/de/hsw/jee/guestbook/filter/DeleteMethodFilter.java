@@ -12,6 +12,15 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
+/**
+ * 
+ * Da in HTML Formularen und Links keine Möglichkeit besteht HTTP-Methoden ausser GET und POST zu verwenden 
+ * wird dieser Filter verwendet um bei Vorhanden-sein eine Reqeuset Attribues mit dem Namen "_method" das Reqeust-
+ * Objekt zu manipulieren und die Http-Methode anzupassen.
+ * 
+ * @author mwildt
+ *
+ */
 @WebFilter("/*") 
 public class DeleteMethodFilter implements Filter{
 
@@ -25,11 +34,7 @@ public class DeleteMethodFilter implements Filter{
 	
 	public static final String METHOD_PARAMETER = "_method";
 	
-	@Override
-	public void init(FilterConfig arg0) throws ServletException {}
-	
-	@Override
-	public void destroy() {}
+
 	
 	public static class ConfigrueableServletRequest extends HttpServletRequestWrapper {
 
@@ -51,21 +56,21 @@ public class DeleteMethodFilter implements Filter{
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {		
 		if(req instanceof HttpServletRequest && HttpMethods.DELETE.is(req.getParameter(METHOD_PARAMETER))) {
-			
 			chain.doFilter(
 				new ConfigrueableServletRequest(HttpServletRequest.class.cast(req), HttpMethods.DELETE),
 				resp
 			);
-		
 		} else {
-			
 			chain.doFilter(req, resp);
-			
 		}
 		
 	}
 
+	@Override
+	public void init(FilterConfig arg0) throws ServletException {}
 	
+	@Override
+	public void destroy() {}
 
 	
 }
